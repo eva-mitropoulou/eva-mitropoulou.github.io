@@ -33,7 +33,8 @@
             <div class="card-body">
               <p class="domain-label">Small molecules</p>
               <h3>EGFR CADD/QSAR</h3>
-              <p>ChEMBL EGFR IC50 curation with RDKit descriptors, Morgan fingerprints, scaffold validation, applicability-domain analysis, ADMET-style triage, and a redocking audit.</p>
+              <p>This project builds an EGFR CADD/QSAR workflow using public ChEMBL IC50 records. I curated molecule-level activity data, standardized molecules, generated RDKit descriptor and Morgan fingerprint features, benchmarked QSAR models under multiple validation settings, and used the trained scoring workflow to review existing EGFR inhibitor-like records.</p>
+              <p>This project tests how much useful modeling can be done from public EGFR IC50 data, while also checking where the model becomes unreliable.</p>
               <ul class="tag-list"><li>RDKit</li><li>ChEMBL</li><li>Scaffold split</li><li>Vina</li></ul>
               <div class="link-row">
                 <a href="projects/egfr-qsar-cadd.html">Project</a>
@@ -46,7 +47,7 @@
             <div class="card-body">
               <p class="domain-label">Biologics</p>
               <h3>Antibody sequence ML</h3>
-              <p>Public antibody sequence-record workflow with supervised neutralisation benchmarking, IgBert/AbLang2 checks, unsupervised embedding-space clustering, source-holdout validation, and OAS existing-record prioritization.</p>
+              <p>This project builds an antibody sequence ML pipeline using public SARS-CoV-2 antibody records. I curated labeled public records, trained ML models to learn patterns associated with neutralising versus non-neutralising sequences, and then used the trained model scoring workflow to prioritize existing OAS antibody records that look most similar to known neutralizing antibodies. The goal is finding existing records that may be worth closer expert review.</p>
               <ul class="tag-list"><li>CoV-AbDab</li><li>OAS</li><li>IgBert</li><li>Source holdout</li></ul>
               <div class="link-row">
                 <a href="projects/antibody-sequence-ml.html">Project</a>
@@ -59,7 +60,8 @@
             <div class="card-body">
               <p class="domain-label">Reaction informatics</p>
               <h3>Reaction-yield prediction</h3>
-              <p>Public Buchwald-Hartwig HTE benchmark with reaction cleaning, categorical component features, out-of-component validation, uncertainty diagnostics, and active-learning simulation.</p>
+              <p>This project builds a reaction-yield modeling workflow using public high-throughput experimentation (HTE) data. I curated public Buchwald-Hartwig reaction-yield records, built categorical component-label features, benchmarked simple ML models, and tested whether performance holds when reaction components are held out rather than only shuffling rows.</p>
+              <p>The goal is to evaluate how far public HTE records can support yield prediction, uncertainty checks, out-of-component validation, active-learning simulation, and existing-record ranking without generating new chemistry or claiming experimental success.</p>
               <ul class="tag-list"><li>Public HTE</li><li>Component labels</li><li>Grouped split</li><li>Random forest</li></ul>
               <div class="link-row">
                 <a href="projects/reaction-yield-ml.html">Project</a>
