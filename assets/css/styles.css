@@ -176,6 +176,12 @@ h3 {
   font-weight: 700;
 }
 
+.plain-email {
+  color: var(--ink);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
 .hero-portrait {
   justify-self: end;
   width: min(260px, 100%);
