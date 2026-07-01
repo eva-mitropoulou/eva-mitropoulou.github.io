@@ -107,14 +107,14 @@ main {
 
 .landing-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 56px;
-  align-items: start;
-  padding: 42px 0 44px;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 280px);
+  gap: clamp(28px, 6vw, 72px);
+  align-items: center;
+  padding: 54px 0 46px;
 }
 
 .hero-copy {
-  max-width: 760px;
+  max-width: 830px;
 }
 
 .eyebrow {
@@ -176,14 +176,10 @@ h3 {
   font-weight: 700;
 }
 
-.profile-card {
-  position: sticky;
-  top: 92px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  padding: 22px;
+.hero-portrait {
+  justify-self: end;
+  width: min(260px, 100%);
+  margin: 0;
 }
 
 .portrait-photo {
@@ -194,41 +190,16 @@ h3 {
   border-radius: 50%;
   background: var(--soft);
   object-fit: cover;
-  object-position: 58% 48%;
+  object-position: center center;
+  box-shadow: 0 0 0 6px #ffffff, var(--shadow);
 }
 
-.profile-card h2 {
-  margin-top: 20px;
-  font-size: 1.15rem;
+.about-text {
+  max-width: 850px;
 }
 
-.profile-card p {
+.about-text p {
   color: var(--muted);
-}
-
-.profile-facts {
-  display: grid;
-  gap: 14px;
-  margin: 18px 0 0;
-}
-
-.profile-facts div {
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.profile-facts dt {
-  color: var(--ink);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.profile-facts dd {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 0.94rem;
 }
 
 .cta-row,
@@ -733,9 +704,14 @@ code {
     grid-template-columns: 1fr;
   }
 
-  .profile-card {
-    position: static;
-    max-width: 420px;
+  .landing-hero {
+    gap: 28px;
+    padding-top: 34px;
+  }
+
+  .hero-portrait {
+    justify-self: start;
+    width: min(220px, 62vw);
   }
 
   .grid.four,

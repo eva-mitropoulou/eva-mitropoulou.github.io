@@ -11,6 +11,7 @@
     <meta property="og:url" content="https://eva-mitropoulou.github.io/">
     <meta property="og:image" content="https://eva-mitropoulou.github.io/assets/figures/portfolio_og_card.svg">
     <link rel="icon" href="assets/figures/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.ico">
     <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
@@ -33,10 +34,11 @@
     <main>
       <section class="landing-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Computational chemistry · cheminformatics · molecular ML</p>
+          <p class="eyebrow">Computational chemistry · antibody ML · cheminformatics</p>
           <h1>Eva Mitropoulou</h1>
-          <p class="lead">Computational chemist working on CADD/QSAR, antibody sequence ML, reaction-yield modeling, and molecular simulation.</p>
-          <p>Eva builds public-data workflows, validation reports, notebooks, figures, and reproducible code for molecular modeling and machine-learning problems in drug discovery and materials chemistry.</p>
+          <p class="lead">Chemistry PhD candidate focused on molecular machine learning for antibody and drug-discovery data.</p>
+          <p>Eva builds end-to-end Python workflows for antibody sequence curation, paired-chain representation, protein language-model embeddings, PyTorch and scikit-learn models, and validation across V-gene and source groups.</p>
+          <p>Her portfolio connects CoV-AbDab and OAS antibody records, ChEMBL/RDKit QSAR, public reaction-yield data, molecular dynamics, DFT, and bioanalytical assay experience.</p>
           <div class="inline-links" aria-label="Primary links">
             <a href="mailto:evangelia.mitr@gmail.com">Email</a>
             <a href="https://github.com/eva-mitropoulou">GitHub</a>
@@ -44,16 +46,17 @@
             <a href="projects.html">Projects</a>
           </div>
         </div>
-        <aside class="profile-card" aria-label="Profile summary">
+        <figure class="hero-portrait" aria-label="Portrait">
           <img class="portrait-photo" src="assets/figures/eva-profile.jpg" alt="Portrait of Eva Mitropoulou">
-          <h2>Computational chemistry</h2>
-          <p>Cheminformatics, molecular simulation, and ML validation.</p>
-          <dl class="profile-facts">
-            <div><dt>Main work</dt><dd>EGFR · antibody records · public HTE reactions</dd></div>
-            <div><dt>Methods</dt><dd>RDKit · scikit-learn · GROMACS · ORCA · SLURM</dd></div>
-            <div><dt>Outputs</dt><dd>Reports · metrics files · notebooks · figures</dd></div>
-          </dl>
-        </aside>
+        </figure>
+      </section>
+
+      <section class="section landing-section about-section" aria-labelledby="about">
+        <h2 id="about">About</h2>
+        <div class="about-text">
+          <p>Eva works at the point where chemistry, molecular data, and model validation meet. Her projects are built around careful curation, transparent benchmarks, and outputs that can be inspected by computational and experimental scientists.</p>
+          <p>Current work centers on antibody sequence records, small-molecule CADD/QSAR, public HTE reaction-yield data, and molecular-simulation workflows from her computational chemistry research.</p>
+        </div>
       </section>
 
       <section class="section landing-section" aria-labelledby="research-interests">
@@ -61,19 +64,19 @@
         <div class="interest-grid">
           <article>
             <h3>Cheminformatics and CADD</h3>
-            <p>Public ChEMBL workflows, molecular descriptors, scaffold validation, applicability-domain checks, and structure-aware sanity checks.</p>
+            <p>ChEMBL workflows, molecular descriptors, Morgan fingerprints, scaffold-aware validation, applicability-domain checks, and compound prioritization.</p>
           </article>
           <article>
             <h3>Biologics sequence ML</h3>
-            <p>Antibody sequence records, k-mer baselines, pretrained representation checks, source-holdout validation, and existing-record prioritization.</p>
+            <p>Antibody sequence curation, paired-chain representations, k-mer baselines, protein language-model embeddings, source-holdout validation, and existing-record prioritization.</p>
           </article>
           <article>
             <h3>Reaction informatics</h3>
-            <p>Public HTE reaction-yield records, grouped component splits, uncertainty diagnostics, and active-learning simulations.</p>
+            <p>Public HTE reaction-yield records, component-label features, grouped validation, uncertainty diagnostics, and active-learning simulations.</p>
           </article>
           <article>
             <h3>Molecular simulation</h3>
-            <p>GROMACS polymer-interface analysis, ORCA and CREST molecular modeling, periodic DFT utilities, and SLURM workflows.</p>
+            <p>GROMACS polymer-interface analysis, ORCA and CREST molecular modeling, periodic DFT utilities, SLURM workflows, and bioanalytical assay context.</p>
           </article>
         </div>
       </section>
