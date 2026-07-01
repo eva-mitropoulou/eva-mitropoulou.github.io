@@ -177,7 +177,14 @@ h3 {
 }
 
 .plain-email {
-  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid #9fcab7;
+  border-radius: 6px;
+  background: #eef8f3;
+  color: #123d3d;
   font-weight: 700;
   overflow-wrap: anywhere;
 }
