@@ -376,18 +376,6 @@ h3 {
   color: var(--muted);
 }
 
-.contact-band {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.contact-band p {
-  margin: 0;
-  color: var(--muted);
-}
-
 .grid {
   display: grid;
   gap: 18px;
@@ -408,7 +396,7 @@ h3 {
 .card,
 .work-card,
 .result-card,
-.tool-group,
+.skill-group,
 .at-a-glance {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -423,14 +411,14 @@ h3 {
 .card-body,
 .work-card,
 .result-card,
-.tool-group,
+.skill-group,
 .at-a-glance {
   padding: 20px;
 }
 
 .card p,
 .work-card p,
-.tool-group p {
+.skill-group p {
   color: var(--muted);
 }
 
@@ -438,7 +426,7 @@ h3 {
 .card ul,
 .card dl,
 .work-card p,
-.tool-group p {
+.skill-group p {
   margin: 12px 0 0;
 }
 
@@ -499,21 +487,21 @@ h3 {
   font-size: 0.92rem;
 }
 
-.tools-grid {
+.skills-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
-.tool-group {
+.skill-group {
   box-shadow: none;
 }
 
-.tool-group h3 {
+.skill-group h3 {
   font-size: 0.98rem;
 }
 
-.tool-group p {
+.skill-group p {
   font-size: 0.92rem;
 }
 
@@ -745,7 +733,7 @@ code {
   }
 
   .grid.four,
-  .tools-grid,
+  .skills-grid,
   .interest-grid,
   .depth-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -774,10 +762,6 @@ code {
     gap: 6px;
   }
 
-  .contact-band {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }
 
 @media (max-width: 560px) {
@@ -794,7 +778,7 @@ code {
   }
 
   .grid.four,
-  .tools-grid,
+  .skills-grid,
   .interest-grid,
   .depth-grid {
     grid-template-columns: 1fr;
