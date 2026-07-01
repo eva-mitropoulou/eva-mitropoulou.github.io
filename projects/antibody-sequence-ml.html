@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antibody Sequence ML | Eva Mitropoulou</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><strong>Eva Mitropoulou</strong><span>Computational chemistry</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a href="../projects.html" aria-current="page">Projects</a>
+          <a href="../skills.html">Skills</a>
+          <a href="../cv.html">CV</a>
+          <a href="../contact.html">Contact</a>
+        </div>
+      </nav>
+    </header>
+    <main class="project-detail">
+      <p class="eyebrow">Biologics</p>
+      <h1>Antibody sequence ML</h1>
+      <p class="lead">Public antibody sequence-record workflow with supervised neutralisation benchmarking, antibody representation checks, unsupervised sequence-space analysis, source-holdout validation, and OAS existing-record prioritization.</p>
+
+      <section class="at-a-glance" aria-labelledby="antibody-glance">
+        <h2 id="antibody-glance">At a glance</h2>
+        <div class="glance-item"><strong>Data:</strong> 5,573 strict labeled records, 11,748 broader prepared records, and 17,882 OAS background rows scored</div>
+        <div class="glance-item"><strong>Methods:</strong> k-mer TF-IDF, logistic regression, AbLang2/IgBert benchmarks, source-holdout validation, embedding landscape, OAS retrieval</div>
+        <div class="glance-item"><strong>Selected model:</strong> whole-pair k-mer TF-IDF logistic regression</div>
+        <div class="glance-item"><strong>Result:</strong> grouped ROC-AUC 0.780, PR-AUC 0.823, 9 unsupervised clusters, top-25 diverse OAS review shortlist</div>
+      </section>
+
+      <h2>Workflow</h2>
+      <p>The workflow starts from public CoV-AbDab SARS-CoV-2 antibody records. Heavy/VHH and light-chain sequences are cleaned, missing placeholders are standardized, amino acid strings are checked, and records are connected to source and target-region metadata when available.</p>
+      <figure>
+        <img src="../assets/figures/antibody_project_workflow.png" alt="Workflow from public antibody records to model validation and review outputs">
+        <figcaption>Project workflow from public antibody records to benchmarking, validation, and review outputs.</figcaption>
+      </figure>
+
+      <h2>Data</h2>
+      <p>The strict labeled table is used for supervised model benchmarking, grouped validation, calibration, model selection, and sequence-space analysis. A broader prepared table keeps missing-label and conflict-label records for review scoring instead of forcing them into the supervised benchmark.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Table</th><th>Rows</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Strict labeled ML table</td><td>5,573</td><td>Supervised benchmarking, grouped validation, source holdout, calibration, and sequence-space summaries.</td></tr>
+            <tr><td>Broader prepared table</td><td>11,748</td><td>Existing-record scoring and missing/conflict-label review categories.</td></tr>
+            <tr><td>Paired annotated subset</td><td>5,092</td><td>CDR and region comparisons on paired-chain records.</td></tr>
+            <tr><td>OAS background records</td><td>17,882</td><td>Unknown-target natural antibody background for retrieval and review prioritization.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Methods</h2>
+      <p>Character k-mer TF-IDF baselines, logistic regression, CDR/region features, AbLang2 and IgBert benchmark comparisons, unsupervised cached-embedding landscape analysis, calibration analysis, OAS background retrieval, and existing-record ranking.</p>
+
+      <h2>Model benchmarking and selection</h2>
+      <p>The first comparison showed that the whole-pair k-mer model and IgBert fine-tuning were close. The k-mer model reached ROC-AUC 0.7800 and PR-AUC 0.8233, while the best single IgBert fine-tuning run reached ROC-AUC 0.7695 and PR-AUC 0.8317. IgBert raised PR-AUC slightly, but did not raise ROC-AUC.</p>
+      <figure>
+        <img src="../assets/figures/antibody_broad_model_benchmark.png" alt="Broad model benchmark on the strict labeled antibody dataset">
+        <figcaption>Broad model benchmark on the strict labeled table.</figcaption>
+      </figure>
+      <p>Additional checks retained the whole-pair k-mer model as the primary scorer. A five-seed IgBert fine-tuning check gave mean ROC-AUC 0.7443 and mean PR-AUC 0.8151, so pretrained alternatives are reported as benchmark evidence rather than treated as the selected model.</p>
+      <figure>
+        <img src="../assets/figures/antibody_kmer_vs_igbert_followup.png" alt="Follow-up comparison between k-mer and IgBert models">
+        <figcaption>Follow-up comparison supporting the simpler k-mer scorer.</figcaption>
+      </figure>
+
+      <h2>Validation</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Output</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Broad scorer</td><td>whole-pair k-mer TF-IDF logistic regression</td></tr>
+            <tr><td>Grouped validation</td><td>ROC-AUC 0.7800, PR-AUC 0.8233</td></tr>
+            <tr><td>Source-robust weighted holdout</td><td>ROC-AUC 0.6095, PR-AUC 0.6363</td></tr>
+            <tr><td>Threshold 0.7</td><td>precision 0.8266, recall 0.3062, coverage 0.3051</td></tr>
+            <tr><td>Unsupervised landscape</td><td>KMeans over cached pair embeddings; 9 clusters; labels overlaid after clustering</td></tr>
+            <tr><td>Paired-region scorer</td><td>region-only compact k-mer</td></tr>
+            <tr><td>Broader CoV-AbDab shortlist</td><td>23 records</td></tr>
+            <tr><td>OAS existing-record scoring</td><td>17,882 rows scored; top-25 diverse records</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure>
+        <img src="../assets/figures/antibody_selected_model_robustness.png" alt="Selected model robustness and threshold 0.7 review cutoff">
+        <figcaption>Selected model robustness and threshold 0.7 review behavior.</figcaption>
+      </figure>
+
+      <h2>Unsupervised sequence-space analysis</h2>
+      <p>The unsupervised landscape used cached pair embeddings and KMeans clustering. Neutralisation labels and source metadata were overlaid after clustering, not used to assign clusters.</p>
+      <figure>
+        <img src="../assets/figures/antibody_unsupervised_landscape.png" alt="Unsupervised antibody sequence landscape">
+        <figcaption>Unsupervised sequence-space landscape built from cached pair embeddings; labels were overlaid only after clustering.</figcaption>
+      </figure>
+
+      <h2>OAS existing-record prioritization</h2>
+      <p>OAS records are treated as unknown-target natural antibody background, not as negative labels. The scoring module ranked 17,882 existing OAS rows and selected a top-25 diverse review shortlist using retrieval score, similarity to curated positive records, and diversity filtering.</p>
+      <figure>
+        <img src="../assets/figures/antibody_oas_existing_record_score_distribution.png" alt="OAS existing-record score distribution">
+        <figcaption>Score distribution for existing OAS records.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/antibody_oas_existing_record_similarity_vs_score.png" alt="OAS existing-record similarity versus score">
+        <figcaption>Similarity to curated positive records compared with prioritization score.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/antibody_oas_existing_record_diversity_map.png" alt="Diversity map for selected OAS existing-record shortlist">
+        <figcaption>Diversity map used to support a compact top-25 expert-review shortlist.</figcaption>
+      </figure>
+
+      <h2>Scope</h2>
+      <p>Scope: retrospective public-record workflow with grouped validation, source-holdout analysis, unsupervised representation analysis, background retrieval, and existing-record ranking. It does not design, generate, mutate, or optimize new antibody sequences. Scores are review-prioritization signals, not binding probabilities or therapeutic-efficacy claims.</p>
+
+      <h2>Reproducibility</h2>
+      <p>The standalone repository includes reports, metrics, figures, model and data cards, and lightweight checks.</p>
+      <pre><code>make reproduce-small
+make test</code></pre>
+      <div class="link-row">
+        <a href="https://github.com/eva-mitropoulou/antibody-prioritization">Repo</a>
+        <a href="https://github.com/eva-mitropoulou/antibody-prioritization/tree/main/reports">Reports</a>
+        <a href="https://github.com/eva-mitropoulou/portfolio/blob/master/projects/antibody-sequence-ml/notebooks/01_antibody_sequence_ml_workflow.ipynb">Notebook</a>
+        <a href="https://github.com/eva-mitropoulou/antibody-prioritization/blob/main/docs/MODEL_CARD.md">Model card</a>
+        <a href="https://github.com/eva-mitropoulou/antibody-prioritization/blob/main/reports/oas_existing_record_shortlist_report.md">OAS shortlist report</a>
+      </div>
+
+      <h2>Technical focus</h2>
+      <p>Sequence-feature engineering, unsupervised embedding-space analysis, grouped validation, source effects, calibration, and record-prioritization workflow design.</p>
+    </main>
+    <footer class="footer">Antibody sequence ML · Eva Mitropoulou</footer>
+  </body>
+</html>

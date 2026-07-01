@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Antibody sequence ML workflow</title>
+  <desc id="desc">Public-data antibody sequence ML workflow from CoV-AbDab records through validation, benchmarks, OAS background retrieval, and existing-record prioritization.</desc>
+  <rect width="1400" height="820" fill="#f7f8f6"/>
+  <text x="70" y="92" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#17201b">Antibody Sequence ML Workflow</text>
+  <text x="70" y="132" font-family="Inter, Arial, sans-serif" font-size="22" fill="#5b665f">Retrospective public-data benchmarking and existing-record prioritization</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#315c8c"/>
+    </marker>
+  </defs>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="70" y="190" width="250" height="132" rx="8" fill="#ffffff" stroke="#dfe5df" stroke-width="2"/>
+    <text x="95" y="230" font-size="24" font-weight="700" fill="#17201b">Public Records</text>
+    <text x="95" y="264" font-size="18" fill="#5b665f">CoV-AbDab-derived</text>
+    <text x="95" y="294" font-size="18" fill="#5b665f">labels and metadata</text>
+
+    <rect x="400" y="190" width="250" height="132" rx="8" fill="#ffffff" stroke="#dfe5df" stroke-width="2"/>
+    <text x="425" y="230" font-size="24" font-weight="700" fill="#17201b">Prepared Tables</text>
+    <text x="425" y="264" font-size="18" fill="#5b665f">strict labeled set</text>
+    <text x="425" y="294" font-size="18" fill="#5b665f">broader record set</text>
+
+    <rect x="730" y="190" width="250" height="132" rx="8" fill="#ffffff" stroke="#dfe5df" stroke-width="2"/>
+    <text x="755" y="230" font-size="24" font-weight="700" fill="#17201b">Feature Layers</text>
+    <text x="755" y="264" font-size="18" fill="#5b665f">k-mers, CDR regions</text>
+    <text x="755" y="294" font-size="18" fill="#5b665f">embedding benchmarks</text>
+
+    <rect x="1060" y="190" width="250" height="132" rx="8" fill="#ffffff" stroke="#dfe5df" stroke-width="2"/>
+    <text x="1085" y="230" font-size="24" font-weight="700" fill="#17201b">Validation</text>
+    <text x="1085" y="264" font-size="18" fill="#5b665f">grouped evaluation</text>
+    <text x="1085" y="294" font-size="18" fill="#5b665f">matched comparisons</text>
+
+    <line x1="320" y1="256" x2="390" y2="256" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="650" y1="256" x2="720" y2="256" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="980" y1="256" x2="1050" y2="256" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <rect x="235" y="455" width="300" height="150" rx="8" fill="#e9f3f1" stroke="#b9d9d4" stroke-width="2"/>
+    <text x="265" y="498" font-size="24" font-weight="700" fill="#17201b">Benchmark Output</text>
+    <text x="265" y="532" font-size="18" fill="#35413b">k-mer and CDR baselines</text>
+    <text x="265" y="562" font-size="18" fill="#35413b">antibody model comparisons</text>
+
+    <rect x="610" y="455" width="300" height="150" rx="8" fill="#f3eadf" stroke="#dec5a5" stroke-width="2"/>
+    <text x="640" y="498" font-size="24" font-weight="700" fill="#17201b">OAS Background</text>
+    <text x="640" y="532" font-size="18" fill="#35413b">unknown-target records</text>
+    <text x="640" y="562" font-size="18" fill="#35413b">background enrichment</text>
+
+    <rect x="985" y="455" width="300" height="150" rx="8" fill="#eef4f8" stroke="#bfd1df" stroke-width="2"/>
+    <text x="1015" y="498" font-size="24" font-weight="700" fill="#17201b">Prioritization</text>
+    <text x="1015" y="532" font-size="18" fill="#35413b">existing-record shortlist</text>
+    <text x="1015" y="562" font-size="18" fill="#35413b">record review queue</text>
+
+    <line x1="1185" y1="322" x2="1185" y2="445" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="855" y1="322" x2="760" y2="445" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="525" y1="322" x2="385" y2="445" stroke="#315c8c" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <rect x="70" y="690" width="1260" height="58" rx="8" fill="#ffffff" stroke="#dfe5df" stroke-width="2"/>
+    <text x="95" y="727" font-size="19" fill="#17201b">Portfolio use: retrospective benchmark, source-aware validation, and existing-record prioritization from public records.</text>
+  </g>
+</svg>

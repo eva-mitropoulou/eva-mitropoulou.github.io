@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reaction Yield Prediction | Eva Mitropoulou</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><strong>Eva Mitropoulou</strong><span>Computational chemistry</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a href="../projects.html" aria-current="page">Projects</a>
+          <a href="../skills.html">Skills</a>
+          <a href="../cv.html">CV</a>
+          <a href="../contact.html">Contact</a>
+        </div>
+      </nav>
+    </header>
+    <main class="project-detail">
+      <p class="eyebrow">Reaction informatics</p>
+      <h1>Reaction-yield prediction</h1>
+      <p class="lead">Public Buchwald-Hartwig HTE benchmark with component features, grouped validation, uncertainty diagnostics, and active-learning simulation.</p>
+
+      <section class="at-a-glance" aria-labelledby="reaction-glance">
+        <h2 id="reaction-glance">At a glance</h2>
+        <div class="glance-item"><strong>Data:</strong> 3,955 public HTE records</div>
+        <div class="glance-item"><strong>Methods:</strong> component features, random forest, uncertainty diagnostics</div>
+        <div class="glance-item"><strong>Validation:</strong> additive-held-out grouped split</div>
+        <div class="glance-item"><strong>Result:</strong> R² 0.726; Spearman 0.860</div>
+      </section>
+
+      <h2>Data</h2>
+      <p>The workflow uses a public Buchwald-Hartwig HTE benchmark with ligand, additive, base, aryl-halide labels, and measured yield percentage.</p>
+
+      <h2>Methods</h2>
+      <p>Reaction cleaning, categorical component features, random forest baselines, grouped component splits, empirical uncertainty checks, active-learning simulation, and ranking diagnostics.</p>
+
+      <h2>Validation</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Check</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Model-ready records</td><td>3,955</td></tr>
+            <tr><td>Primary split</td><td>additive-held-out grouped split</td></tr>
+            <tr><td>Random forest on primary split</td><td>MAE 10.754, RMSE 14.237, R² 0.726</td></tr>
+            <tr><td>Rank correlation</td><td>Spearman 0.860</td></tr>
+            <tr><td>Top-10% enrichment</td><td>7.333</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Figures</h2>
+      <figure>
+        <img src="../assets/figures/reaction_yield_model_comparison.png" alt="Reaction-yield model comparison by split">
+        <figcaption>Model comparison across random and out-of-component validation splits.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/reaction_yield_active_learning_budget_curve.png" alt="Retrospective active-learning budget curve">
+        <figcaption>Budgeted selection curve over existing public records.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/reaction_yield_uncertainty_vs_error.png" alt="Uncertainty proxy versus absolute error">
+        <figcaption>Tree-ensemble uncertainty proxy compared with absolute error.</figcaption>
+      </figure>
+
+      <h2>Scope</h2>
+      <p>Scope: public HTE component-label workflow with retrospective grouped validation and existing-record ranking.</p>
+
+      <h2>Reproducibility</h2>
+      <p>The standalone repository includes source code, tests, aggregate reports, metrics, figures, and a small fixture path.</p>
+      <pre><code>make reproduce-small
+make test</code></pre>
+      <div class="link-row">
+        <a href="https://github.com/eva-mitropoulou/reaction-yield-prediction">Repo</a>
+        <a href="https://github.com/eva-mitropoulou/reaction-yield-prediction/blob/main/reports/final_project_report.md">Report</a>
+        <a href="https://github.com/eva-mitropoulou/portfolio/blob/master/projects/reaction-yield-ml/notebooks/04_reaction_yield_ml_walkthrough.ipynb">Notebook</a>
+      </div>
+
+      <h2>Technical focus</h2>
+      <p>Public reaction data handling, grouped validation, component-label modeling, uncertainty diagnostics, and budgeted record selection.</p>
+    </main>
+    <footer class="footer">Reaction-yield prediction · Eva Mitropoulou</footer>
+  </body>
+</html>

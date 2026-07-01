@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eva Mitropoulou | Computational Chemistry</title>
+    <meta name="description" content="Computational chemistry portfolio: CADD/QSAR, antibody sequence ML, reaction-yield modeling, molecular simulation, and ML validation.">
+    <meta property="og:title" content="Eva Mitropoulou | Computational Chemistry">
+    <meta property="og:description" content="Computational chemistry portfolio: CADD/QSAR, antibody sequence ML, reaction-yield modeling, molecular simulation, and ML validation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eva-mitropoulou.github.io/">
+    <meta property="og:image" content="https://eva-mitropoulou.github.io/assets/figures/portfolio_og_card.svg">
+    <link rel="icon" href="assets/figures/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="index.html">
+          <strong>Eva Mitropoulou</strong>
+          <span>Computational chemistry</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="skills.html">Skills</a>
+          <a href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="landing-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Computational chemistry · cheminformatics · molecular ML</p>
+          <h1>Eva Mitropoulou</h1>
+          <p class="lead">Computational chemist working on CADD/QSAR, antibody sequence ML, reaction-yield modeling, and molecular simulation.</p>
+          <p>Eva builds public-data workflows, validation reports, notebooks, figures, and reproducible code for molecular modeling and machine-learning problems in drug discovery and materials chemistry.</p>
+          <div class="inline-links" aria-label="Primary links">
+            <a href="mailto:evangelia.mitr@gmail.com">Email</a>
+            <a href="https://github.com/eva-mitropoulou">GitHub</a>
+            <a href="cv.html">CV</a>
+            <a href="projects.html">Projects</a>
+          </div>
+        </div>
+        <aside class="profile-card" aria-label="Profile summary">
+          <img class="portrait-photo" src="assets/figures/eva-profile.jpg" alt="Portrait of Eva Mitropoulou">
+          <h2>Computational chemistry</h2>
+          <p>Cheminformatics, molecular simulation, and ML validation.</p>
+          <dl class="profile-facts">
+            <div><dt>Main work</dt><dd>EGFR · antibody records · public HTE reactions</dd></div>
+            <div><dt>Methods</dt><dd>RDKit · scikit-learn · GROMACS · ORCA · SLURM</dd></div>
+            <div><dt>Outputs</dt><dd>Reports · metrics files · notebooks · figures</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="section landing-section" aria-labelledby="research-interests">
+        <h2 id="research-interests">Research interests</h2>
+        <div class="interest-grid">
+          <article>
+            <h3>Cheminformatics and CADD</h3>
+            <p>Public ChEMBL workflows, molecular descriptors, scaffold validation, applicability-domain checks, and structure-aware sanity checks.</p>
+          </article>
+          <article>
+            <h3>Biologics sequence ML</h3>
+            <p>Antibody sequence records, k-mer baselines, pretrained representation checks, source-holdout validation, and existing-record prioritization.</p>
+          </article>
+          <article>
+            <h3>Reaction informatics</h3>
+            <p>Public HTE reaction-yield records, grouped component splits, uncertainty diagnostics, and active-learning simulations.</p>
+          </article>
+          <article>
+            <h3>Molecular simulation</h3>
+            <p>GROMACS polymer-interface analysis, ORCA and CREST molecular modeling, periodic DFT utilities, and SLURM workflows.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section landing-section" id="main-work" aria-labelledby="selected-work">
+        <div class="section-heading">
+          <h2 id="selected-work">Selected work</h2>
+          <a href="projects.html">All projects</a>
+        </div>
+        <div class="feature-list">
+          <article class="feature-item">
+            <img src="assets/figures/egfr_validation_contexts.png" alt="EGFR validation contexts">
+            <div>
+              <p class="domain-label">Small molecules</p>
+              <h3>EGFR CADD/QSAR</h3>
+              <p>ChEMBL EGFR IC50 curation with RDKit descriptors, Morgan fingerprints, scaffold validation, applicability-domain analysis, ADMET-style triage, and a redocking audit.</p>
+              <p class="compact-metrics">10,593 molecules · scaffold R² 0.550 · redocking RMSD 0.968 Å</p>
+              <div class="inline-links">
+                <a href="projects/egfr-qsar-cadd.html">Project</a>
+                <a href="https://github.com/eva-mitropoulou/egfr-cadd-qsar-admet">Repo</a>
+                <a href="https://github.com/eva-mitropoulou/egfr-cadd-qsar-admet/blob/main/reports/final_egfr_cadd_qsar_report.md">Report</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <img src="assets/figures/antibody_project_workflow.png" alt="Antibody sequence ML workflow">
+            <div>
+              <p class="domain-label">Biologics</p>
+              <h3>Antibody sequence ML</h3>
+              <p>Public antibody sequence-record workflow with supervised k-mer baselines, IgBert and AbLang2 checks, source-holdout validation, OAS background retrieval, and existing-record ranking.</p>
+              <p class="compact-metrics">5,573 strict labeled records · grouped ROC-AUC 0.780 · OAS top-25 shortlist</p>
+              <div class="inline-links">
+                <a href="projects/antibody-sequence-ml.html">Project</a>
+                <a href="https://github.com/eva-mitropoulou/antibody-prioritization">Repo</a>
+                <a href="https://github.com/eva-mitropoulou/antibody-prioritization/blob/main/docs/MODEL_CARD.md">Model card</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <img src="assets/figures/reaction_yield_model_comparison.png" alt="Reaction-yield model comparison">
+            <div>
+              <p class="domain-label">Reaction informatics</p>
+              <h3>Reaction-yield prediction</h3>
+              <p>Public Buchwald-Hartwig HTE benchmark with reaction cleaning, categorical component features, out-of-component validation, uncertainty diagnostics, and active-learning simulation.</p>
+              <p class="compact-metrics">3,955 public HTE records · additive-held-out R² 0.726 · Spearman 0.860</p>
+              <div class="inline-links">
+                <a href="projects/reaction-yield-ml.html">Project</a>
+                <a href="https://github.com/eva-mitropoulou/reaction-yield-prediction">Repo</a>
+                <a href="https://github.com/eva-mitropoulou/reaction-yield-prediction/blob/main/reports/final_project_report.md">Report</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section landing-section" aria-labelledby="recent-outputs">
+        <h2 id="recent-outputs">Recent outputs</h2>
+        <div class="news-list">
+          <article>
+            <span>Antibody ML</span>
+            <p>Added OAS existing-record ranking summaries and an unsupervised cached-embedding sequence landscape.</p>
+          </article>
+          <article>
+            <span>EGFR CADD/QSAR</span>
+            <p>Consolidated the scaffold-validation, applicability-domain, triage, and redocking workflow into a public project page.</p>
+          </article>
+          <article>
+            <span>Reaction yield</span>
+            <p>Packaged a public HTE benchmark with additive-held-out validation, uncertainty diagnostics, and active-learning simulation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section landing-section" aria-labelledby="computational-depth">
+        <h2 id="computational-depth">Computational chemistry depth</h2>
+        <div class="depth-grid">
+          <article>
+            <h3>Polymer-filler MD</h3>
+            <p>GROMACS analysis of polypropylene/brucite interfaces, coated and uncoated filler configurations, contact counts, and interaction energies.</p>
+          </article>
+          <article>
+            <h3>DFT flame-retardant modeling</h3>
+            <p>ORCA and CREST workflows for conformer handling, bond-length analysis, nonbonded contacts, and candidate interpretation.</p>
+          </article>
+          <article>
+            <h3>Periodic DFT</h3>
+            <p>Quantum ESPRESSO inputs, CIF conversion utilities, relaxation outputs, phonon setup, and restart scripts.</p>
+          </article>
+          <article>
+            <h3>HPC workflows</h3>
+            <p>SLURM-oriented scripts for setup, restarts, benchmarking, and simulation-analysis workflows.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section landing-section" aria-labelledby="methods-tools">
+        <h2 id="methods-tools">Methods and tools</h2>
+        <div class="tools-grid">
+          <div class="tool-group">
+            <h3>Cheminformatics</h3>
+            <p>RDKit · ChEMBL · Morgan fingerprints · descriptors · scaffold split · applicability domain</p>
+          </div>
+          <div class="tool-group">
+            <h3>Biologics</h3>
+            <p>CoV-AbDab · OAS · CDR regions · k-mer features · IgBert · AbLang2 · source holdout</p>
+          </div>
+          <div class="tool-group">
+            <h3>Reaction informatics</h3>
+            <p>Public HTE data · component labels · out-of-component validation · active-learning simulation</p>
+          </div>
+          <div class="tool-group">
+            <h3>Simulation</h3>
+            <p>GROMACS · ORCA · CREST · Quantum ESPRESSO · SLURM</p>
+          </div>
+          <div class="tool-group">
+            <h3>ML validation</h3>
+            <p>scikit-learn · PyTorch · grouped validation · ROC-AUC · PR-AUC · RMSE · R² · uncertainty diagnostics</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section landing-section contact-band" aria-labelledby="contact-links">
+        <div>
+          <h2 id="contact-links">Contact</h2>
+          <p>For CV, project details, and public code, use the links below.</p>
+        </div>
+        <div class="inline-links">
+          <a href="mailto:evangelia.mitr@gmail.com">Email</a>
+          <a href="https://github.com/eva-mitropoulou">GitHub</a>
+          <a href="cv.html">CV summary</a>
+          <a href="contact.html">Contact page</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Eva Mitropoulou · <a href="mailto:evangelia.mitr@gmail.com">evangelia.mitr@gmail.com</a> · <a href="https://github.com/eva-mitropoulou">GitHub</a></span>
+    </footer>
+  </body>
+</html>
