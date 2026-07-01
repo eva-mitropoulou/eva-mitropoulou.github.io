@@ -344,6 +344,12 @@ h3 {
   background: var(--soft);
 }
 
+.feature-item img.egfr-thumb,
+.figure-thumb.egfr-thumb {
+  object-fit: contain;
+  background: white;
+}
+
 .feature-item p {
   color: var(--muted);
 }
