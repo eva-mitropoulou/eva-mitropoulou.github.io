@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Eva Mitropoulou | Computational Chemistry</title>
-    <meta name="description" content="Computational chemistry portfolio: antibody sequence ML, CADD/QSAR, reaction-yield modeling, cheminformatics, and ML validation.">
+    <meta name="description" content="Computational chemistry portfolio: virtual-screening triage, CADD/QSAR, antibody sequence ML, reaction-yield modeling, cheminformatics, and ML validation.">
     <meta property="og:title" content="Eva Mitropoulou | Computational Chemistry">
-    <meta property="og:description" content="Computational chemistry portfolio: antibody sequence ML, CADD/QSAR, reaction-yield modeling, cheminformatics, and ML validation.">
+    <meta property="og:description" content="Computational chemistry portfolio: virtual-screening triage, CADD/QSAR, antibody sequence ML, reaction-yield modeling, cheminformatics, and ML validation.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://eva-mitropoulou.github.io/">
     <meta property="og:image" content="https://eva-mitropoulou.github.io/assets/figures/portfolio_og_card.svg">
@@ -76,46 +76,53 @@
         </div>
         <div class="feature-list">
           <article class="feature-item">
-            <img class="egfr-thumb" src="assets/figures/egfr_applicability_uncertainty.png" alt="EGFR applicability-domain and uncertainty checks">
+            <a class="thumb-link" href="projects/screensift-virtual-screening.html" aria-label="ScreenSift virtual-screening triage project">
+              <img src="assets/figures/screensift_enrichment.png" alt="ScreenSift MAPK1 structure-score enrichment vs random">
+            </a>
             <div>
               <p class="domain-label">Small molecules</p>
-              <h3>EGFR CADD/QSAR</h3>
+              <h3><a href="projects/screensift-virtual-screening.html">ScreenSift · virtual-screening triage</a></h3>
+              <p>ScreenSift is an end-to-end virtual-screening triage pipeline: it curates a ligand dataset, prepares ligands and a receptor ensemble, runs Uni-Dock docking and GNINA rescoring, computes ligand-similarity evidence, and combines these into a transparent ranked candidate shortlist with explicit, per-channel evidence buckets. It is packaged as an installable Python API (<code>find_candidates</code>) and a config-driven CLI.</p>
+              <p>I ran it end to end on the full LIT-PCBA MAPK1 benchmark and kept the framing leakage-aware: docking enriches actives at the top but does not separate them globally, so similarity and structure are reported as separate evidence channels rather than blended into one score.</p>
+              <p class="compact-metrics">61,971 ligands · 5-receptor ensemble · 309,230 docking jobs · EF₁% 3.35 · 115 tests, CI</p>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <a class="thumb-link" href="projects/egfr-qsar-cadd.html" aria-label="EGFR CADD/QSAR project">
+              <img class="egfr-thumb" src="assets/figures/egfr_applicability_uncertainty.png" alt="EGFR applicability-domain and uncertainty checks">
+            </a>
+            <div>
+              <p class="domain-label">Small molecules</p>
+              <h3><a href="projects/egfr-qsar-cadd.html">EGFR CADD/QSAR</a></h3>
               <p>This project builds an EGFR CADD/QSAR workflow using public ChEMBL IC50 records. I curated molecule-level activity data, standardized molecules, generated RDKit descriptor and Morgan fingerprint features, benchmarked QSAR models under multiple validation settings, and used the trained scoring workflow to review existing EGFR inhibitor-like records.</p>
               <p>This project tests how much useful modeling can be done from public EGFR IC50 data, while also checking where the model becomes unreliable.</p>
               <p class="compact-metrics">10,593 molecules · scaffold R² 0.550 · redocking RMSD 0.968 Å</p>
-              <div class="inline-links">
-                <a href="projects/egfr-qsar-cadd.html">Project</a>
-                <a href="https://github.com/eva-mitropoulou/egfr-cadd-qsar-admet">Repo</a>
-              </div>
             </div>
           </article>
 
           <article class="feature-item">
-            <img src="assets/figures/antibody_project_workflow.png" alt="Antibody sequence ML workflow">
+            <a class="thumb-link" href="projects/antibody-sequence-ml.html" aria-label="Antibody sequence ML project">
+              <img src="assets/figures/antibody_project_workflow.png" alt="Antibody sequence ML workflow">
+            </a>
             <div>
               <p class="domain-label">Biologics</p>
-              <h3>Antibody sequence ML</h3>
+              <h3><a href="projects/antibody-sequence-ml.html">Antibody sequence ML</a></h3>
               <p>This project builds an antibody sequence ML pipeline using public SARS-CoV-2 antibody records. I curated labeled public records, trained ML models to learn patterns associated with neutralising versus non-neutralising sequences, and then used the trained model scoring workflow to prioritize existing OAS antibody records that look most similar to known neutralizing antibodies. The goal is finding existing records that may be worth closer expert review.</p>
               <p class="compact-metrics">5,573 strict labeled records · grouped ROC-AUC 0.780 · OAS top-25 shortlist</p>
-              <div class="inline-links">
-                <a href="projects/antibody-sequence-ml.html">Project</a>
-                <a href="https://github.com/eva-mitropoulou/antibody-prioritization">Repo</a>
-              </div>
             </div>
           </article>
 
           <article class="feature-item">
-            <img src="assets/figures/reaction_yield_model_comparison.png" alt="Reaction-yield model comparison">
+            <a class="thumb-link" href="projects/reaction-yield-ml.html" aria-label="Reaction-yield prediction project">
+              <img src="assets/figures/reaction_yield_model_comparison.png" alt="Reaction-yield model comparison">
+            </a>
             <div>
               <p class="domain-label">Reaction informatics</p>
-              <h3>Reaction-yield prediction</h3>
+              <h3><a href="projects/reaction-yield-ml.html">Reaction-yield prediction</a></h3>
               <p>This project builds a reaction-yield modeling workflow using public high-throughput experimentation (HTE) data. I curated public Buchwald-Hartwig reaction-yield records, built categorical component-label features, benchmarked simple ML models, and tested whether performance holds when reaction components are held out rather than only shuffling rows.</p>
               <p>The goal is to evaluate how far public HTE records can support yield prediction, uncertainty checks, out-of-component validation, active-learning simulation, and existing-record ranking without generating new chemistry or claiming experimental success.</p>
               <p class="compact-metrics">3,955 public HTE records · additive-held-out R² 0.726 · Spearman 0.860</p>
-              <div class="inline-links">
-                <a href="projects/reaction-yield-ml.html">Project</a>
-                <a href="https://github.com/eva-mitropoulou/reaction-yield-prediction">Repo</a>
-              </div>
             </div>
           </article>
         </div>
@@ -146,6 +153,10 @@
       <section class="section landing-section" aria-labelledby="recent-outputs">
         <h2 id="recent-outputs">Recent outputs</h2>
         <div class="news-list">
+          <article>
+            <span>ScreenSift virtual screening</span>
+            <p>Packaged an end-to-end LIT-PCBA MAPK1 triage pipeline (curation → ensemble docking → GNINA rescoring → similarity/structure evidence) as an installable, tested Python API with symmetry-aware redocking validation.</p>
+          </article>
           <article>
             <span>Antibody sequence modeling</span>
             <p>Added OAS existing-record ranking summaries and an unsupervised cached-embedding sequence landscape.</p>

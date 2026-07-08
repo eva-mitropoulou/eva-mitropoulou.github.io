@@ -350,6 +350,28 @@ h3 {
   background: white;
 }
 
+/* Clickable project thumbnails (link wraps the image without adding
+   underline or baseline gaps). */
+.thumb-link {
+  display: block;
+  line-height: 0;
+  border-radius: 8px;
+  outline-offset: 3px;
+}
+
+.card .thumb-link {
+  border-radius: 0;
+}
+
+.thumb-link img {
+  transition: opacity 0.15s ease;
+}
+
+.thumb-link:hover img,
+.thumb-link:focus-visible img {
+  opacity: 0.9;
+}
+
 .feature-item p {
   color: var(--muted);
 }
