@@ -35,9 +35,9 @@
             <div class="card-body">
               <p class="domain-label">Small molecules</p>
               <h3><a href="projects/screensift-virtual-screening.html">ScreenSift · virtual-screening triage</a></h3>
-              <p>ScreenSift is an end-to-end virtual-screening triage pipeline: curate a ligand dataset, prepare ligands and a receptor ensemble, run Uni-Dock docking and GNINA rescoring, compute ligand-similarity evidence, and combine them into a transparent ranked candidate shortlist with explicit per-channel evidence buckets. Packaged as an installable Python API and config-driven CLI.</p>
-              <p>Run end to end on the full LIT-PCBA MAPK1 benchmark, with leakage-aware framing: docking enriches actives at the top but does not separate them globally, so similarity and structure stay as separate evidence channels.</p>
-              <ul class="tag-list"><li>Uni-Dock</li><li>GNINA</li><li>ECFP4/Tanimoto</li><li>Ensemble docking</li></ul>
+              <p>ScreenSift is a Python package that combines 2D ligand-similarity evidence and 3D docking/rescoring evidence into one ranked ligand table while preserving why each compound was selected: RDKit curation, native-ligand redocking validation, Uni-Dock screening, GNINA rescoring, ECFP4/Tanimoto similarity, and direction-aware normalization into transparent evidence buckets. Packaged as an installable Python API and config-driven CLI.</p>
+              <p>Validated on the LIT-PCBA MAPK1 benchmark across two redocking-validated receptor setups (4QTA, 6SLG); a combined similarity/structure top-100 shortlist reached ~11.8× enrichment over the base active rate.</p>
+              <ul class="tag-list"><li>Uni-Dock</li><li>GNINA</li><li>ECFP4/Tanimoto</li><li>Native redocking</li></ul>
             </div>
           </article>
           <article class="card">

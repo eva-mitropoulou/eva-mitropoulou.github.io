@@ -21,59 +21,84 @@
     <main class="project-detail">
       <p class="eyebrow">Small molecules</p>
       <h1>ScreenSift · virtual-screening triage</h1>
-      <p class="lead">ScreenSift is an end-to-end virtual-screening triage pipeline. It turns a raw ligand table into a transparent, ranked candidate shortlist: curate and standardize molecules, prepare 3D/PDBQT ligands and a receptor ensemble, run Uni-Dock docking and GNINA rescoring, compute ECFP4/Tanimoto similarity evidence, and combine the channels into interpretable candidate buckets. It is packaged as an installable Python API (<code>find_candidates</code>) and a config-driven CLI.</p>
-      <p>I ran it end to end on the full LIT-PCBA MAPK1 benchmark, and kept the framing deliberately leakage-aware: docking enriches actives at the top of the list but does not separate them from inactives globally, so similarity and structure are reported as separate evidence channels rather than blended into a single opaque score.</p>
+      <p class="lead">ScreenSift is a Python package built around a practical virtual-screening problem: how do we combine 2D ligand-based evidence and 3D structure-based evidence into one ranked ligand table while still preserving the reason each compound was selected?</p>
+      <p>The workflow starts from a ligand table, curates molecular structures with RDKit, prepares docking inputs with Meeko, screens compounds with Uni-Dock, rescores docked poses with GNINA, and optionally adds ECFP4/Tanimoto similarity against known actives. The final output is a transparent triage table that ranks compounds while preserving the evidence behind each selection.</p>
+      <p>I validated ScreenSift on the LIT-PCBA MAPK1 benchmark using native-ligand redocking, two validated MAPK1 receptor setups, Uni-Dock virtual screening, GNINA rescoring, ligand-similarity scoring, and final candidate ranking.</p>
 
       <section class="at-a-glance" aria-labelledby="ss-glance">
         <h2 id="ss-glance">At a glance</h2>
-        <div class="glance-item"><strong>Data:</strong> full LIT-PCBA MAPK1 set — 61,971 curated ligands (298 active / 60,662 inactive after curation)</div>
-        <div class="glance-item"><strong>Methods:</strong> RDKit curation, Meeko/ETKDG ligand prep, 5-receptor holo ensemble, Uni-Dock docking, GNINA CNN rescoring, ECFP4/Tanimoto similarity, evidence-bucket triage</div>
-        <div class="glance-item"><strong>Scale:</strong> 309,230 receptor–ligand docking jobs; GNINA rescoring on 60,960 ligands</div>
-        <div class="glance-item"><strong>Result:</strong> Uni-Dock EF₁% 3.35; top-100 shortlist with explicit evidence buckets; symmetry-aware native redocking 2/5 receptors ≤ 2.0 Å</div>
-        <div class="glance-item"><strong>Engineering:</strong> installable <code>screensift</code> package, config-driven pipeline, 115 passing tests, GitHub Actions CI</div>
+        <div class="glance-item"><strong>Problem:</strong> combine 2D similarity and 3D docking/rescoring evidence into one ranked table without losing why each compound was picked</div>
+        <div class="glance-item"><strong>Methods:</strong> RDKit curation, Meeko ligand prep, native-ligand redocking validation, Uni-Dock screening, GNINA CNN rescoring, ECFP4/Tanimoto similarity, direction-aware normalization, evidence-bucket triage</div>
+        <div class="glance-item"><strong>Benchmark:</strong> LIT-PCBA MAPK1 on two validated receptor setups (4QTA, 6SLG); 51,507 scored ligand rows</div>
+        <div class="glance-item"><strong>Result:</strong> combined ranking (similarity 0.75 / structure 0.25) → top-100 with 6 known actives, ~11.8× enrichment over the 0.51% base rate</div>
+        <div class="glance-item"><strong>Engineering:</strong> installable <code>screensift</code> package with <code>find_candidates</code> API + config-driven CLI, 122 passing tests, GitHub Actions CI, MIT-licensed</div>
       </section>
 
-      <h2>Approach</h2>
-      <p>Virtual-screening projects mix heterogeneous evidence — chemical similarity, docking scores, and ML rescoring — that are not on the same scale. A single weighted sum can hide useful candidates when one channel is weak or missing. ScreenSift instead normalizes each channel with its known score direction, assigns interpretable support buckets (<code>consensus_supported</code>, <code>analog_supported</code>, <code>structure_supported</code>, <code>deprioritized</code>), and returns the top candidates with the evidence that ranked them. It ranks and explains candidates; it does not claim experimental activity.</p>
+      <h2>Why It Exists</h2>
+      <p>Virtual-screening projects mix heterogeneous evidence — chemical similarity, docking scores, and ML rescoring — that are not on the same scale. A single weighted sum can hide useful candidates when one channel is weak or missing. ScreenSift normalizes each channel with its known score direction, assigns interpretable support buckets, and returns the top candidates together with the evidence that ranked them. It ranks and explains candidates; it does not claim experimental activity.</p>
 
-      <h2>Pipeline</h2>
-      <p>Dataset + schema + target → molecular audit and canonical ligand table → ligand 3D/PDBQT preparation → receptor/box-driven Uni-Dock screening → optional GNINA rescoring → ECFP4/Tanimoto similarity evidence → normalized structure and similarity channels → ranked candidate table. Native-ligand redocking and GNINA score-only checks validate the docking setup before ranking.</p>
+      <h2>Workflow</h2>
+      <p>The intended end-to-end path is:</p>
+      <pre><code>dataset + schema + target
+  -&gt; molecular audit and canonical ligand table
+  -&gt; receptor/box/native-ligand setup
+  -&gt; native-ligand redocking validation
+  -&gt; optional receptor filtering from redocking pass/fail
+  -&gt; ligand 3D/PDBQT preparation
+  -&gt; receptor/box-driven Uni-Dock screening
+  -&gt; optional GNINA rescoring
+  -&gt; ECFP4/Tanimoto similarity evidence
+  -&gt; normalized docking/rescoring and similarity evidence
+  -&gt; candidate table</code></pre>
+      <p>A YAML schema maps arbitrary dataset columns (ChEMBL-style or a local CSV) onto ScreenSift fields, and activity labels can be taken directly or derived from thresholds. Curation canonicalizes molecules with RDKit, generates InChIKeys, deduplicates by molecular identity, and records explicit failure reasons for invalid or conflicting rows.</p>
 
-      <h2>Results</h2>
+      <h2>Native Redocking Before Screening</h2>
+      <p>Before the many-ligand screen, ScreenSift can redock each receptor's known native ligand with Uni-Dock to validate the box and docking setup before spending time on library docking. This is report-only by default; with <code>filter_receptors: true</code> it screens only receptor setups that pass the configured RMSD threshold. An optional, fully user-defined auto-tuning step tries a sequence of box/exhaustiveness attempts per receptor and stops at the first that passes — and if filtering is enabled and no receptor passes, the pipeline stops rather than screen against an invalid receptor set.</p>
+
+      <h2>Evidence, Normalization, And Ranking</h2>
+      <p>Uni-Dock and GNINA produce structure-score columns (<code>unidock_best_score</code>, <code>CNNscore</code>, <code>CNNaffinity</code>, <code>gnina_affinity</code>), auto-detected with the correct score direction; ECFP4/Tanimoto similarity to known actives is computed when no similarity column is supplied. Each score is rescaled independently to 0–1 with its direction handled, combined into one <code>structure_score_norm</code> per ligand, and merged with similarity under a user-chosen policy (<code>max</code> or explicit weighted mean). The <code>find_candidates</code> API and matching CLI expose this selection step directly.</p>
+
+      <h2>Evidence Buckets</h2>
+      <p>Normalized scores are compared against user-defined cutoffs to label why each compound ranked — without reserving slots for either channel:</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Stage</th><th>Result</th></tr></thead>
+          <thead><tr><th>Condition</th><th>Bucket</th></tr></thead>
           <tbody>
-            <tr><td>Dataset audit / curation</td><td>61,971 ligands (298 active, 60,662 inactive)</td></tr>
-            <tr><td>Receptor ensemble</td><td>5 MAPK1 holo structures (4QTA, 4ZZN, 5WP1, 6SLG, 8AOJ)</td></tr>
-            <tr><td>Uni-Dock screening</td><td>309,230 receptor–ligand docking jobs</td></tr>
-            <tr><td>GNINA rescoring</td><td>60,960 ligands (Docker/GPU), 60,856 complete</td></tr>
-            <tr><td>Enrichment (Uni-Dock best score)</td><td>EF₁% 3.35, EF₅% 2.55, EF₁₀% 1.91</td></tr>
-            <tr><td>Native redocking (symmetry-aware, receptor frame)</td><td>2/5 receptors ≤ 2.0 Å (4QTA 0.35 Å, 6SLG 1.76 Å)</td></tr>
-            <tr><td>Candidate shortlist</td><td>top 100 by unified evidence score (96 structure-supported, 4 consensus-supported)</td></tr>
+            <tr><td>similarity passes, structure passes</td><td><code>consensus_supported</code></td></tr>
+            <tr><td>similarity passes, structure does not</td><td><code>analog_supported</code></td></tr>
+            <tr><td>structure passes, similarity does not</td><td><code>structure_supported</code></td></tr>
+            <tr><td>neither passes</td><td><code>deprioritized</code></td></tr>
           </tbody>
         </table>
       </div>
 
-      <h2>Figures</h2>
-      <figure>
-        <img src="../assets/figures/screensift_enrichment.png" alt="MAPK1 structure-score enrichment factor vs random at top fractions">
-        <figcaption>Enrichment factor of the structure scores at the top 1/5/10/20% of the ranked list. Uni-Dock best score reaches EF₁% ≈ 3.35 — meaningful early enrichment, well above random (EF = 1).</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/figures/screensift_score_distribution.png" alt="MAPK1 Uni-Dock score distribution for actives vs inactives">
-        <figcaption>Docking-score distributions for actives and inactives overlap strongly overall: docking helps at the very top of the list, not as a global separator. This is the observation that motivates keeping similarity and structure as separate, explicit evidence channels.</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/figures/screensift_redocking.png" alt="MAPK1 native-ligand redocking RMSD per receptor">
-        <figcaption>Native-ligand redocking RMSD per receptor, computed with a symmetry-aware, receptor-frame metric (no re-superposition, so genuine displacement is preserved). 2 of 5 receptors recover the crystal pose within 2.0 Å.</figcaption>
-      </figure>
+      <h2>MAPK1 Benchmark Run</h2>
+      <p>The example workflow was run on the LIT-PCBA MAPK1 target using the two validated receptor setups, 4QTA and 6SLG:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stage</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Dataset audit</td><td>61,971 curated ligands: 302 active and 61,669 inactive</td></tr>
+            <tr><td>Receptor setup</td><td>two validated MAPK1 receptors: 4QTA and 6SLG</td></tr>
+            <tr><td>Score population</td><td>51,507 ligand rows from 4QTA/6SLG Uni-Dock docking and GNINA rescoring</td></tr>
+            <tr><td>Similarity evidence</td><td>ECFP4/Tanimoto similarity to known actives for all 51,507 rows</td></tr>
+            <tr><td>Complete score rows</td><td>51,430 complete, 77 failed</td></tr>
+            <tr><td>Label composition</td><td>262 known actives, 51,245 known inactives</td></tr>
+            <tr><td>Ranking policy</td><td><code>combined</code> evidence: similarity 0.75 / structure 0.25</td></tr>
+            <tr><td>Top-100 shortlist</td><td>6 known actives and 94 known inactives</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The scored population contains 262 known actives among 51,507 rows (0.51%), so a random top-100 sample would contain about 0.5 known actives on average. This example shortlist's 6/100 is roughly <strong>11.8× enriched</strong> over that random baseline. The active count is the retrospective label composition of the ranked shortlist, not a claim of new MAPK1 inhibitors.</p>
+
+      <h2>Tests And Validation</h2>
+      <p>The package test suite runs with <code>PYTHONPATH=src python -m pytest tests/</code>; the current local result is 122 tests passing (with 2 upstream MDAnalysis/numpy warnings). Continuous integration runs the suite on GitHub Actions.</p>
 
       <h2>Scope</h2>
-      <p>Retrospective, public-data workflow over the LIT-PCBA MAPK1 benchmark. The output is a ranked triage table with explicit evidence channels, not a claim of new MAPK1 inhibitors. Similarity and structure are treated as separate evidence, not a method-vs-method benchmark.</p>
+      <p>Retrospective, public-data workflow over the LIT-PCBA MAPK1 benchmark. The output is a ranked triage table with explicit evidence channels, treated as separate 2D and 3D evidence rather than a method-vs-method benchmark, and it is not a claim of new MAPK1 inhibitors.</p>
 
       <h2>Reproducibility</h2>
-      <p>The standalone repository is a pip-installable package with a runnable MAPK1 example (ranking demo plus a docking-ready receptor ensemble), committed reference outputs to check a run against, reports, tests, and GitHub Actions CI.</p>
+      <p>The standalone repository is a pip-installable package with a runnable MAPK1 example, committed reference outputs to check a run against, tests, and CI. The core <code>find_candidates</code> API installs from PyPI wheels alone; the full docking/prep workflow adds external tools (Meeko, Open Babel, Uni-Dock, GNINA) via the reproducible conda environment.</p>
       <pre><code>pip install -e .
 python example/mapk1/run_example.py
 python -m pytest tests/</code></pre>
@@ -82,7 +107,7 @@ python -m pytest tests/</code></pre>
       </div>
 
       <h2>Technical focus</h2>
-      <p>End-to-end CADD workflow design, ensemble docking and GNINA rescoring, symmetry-aware redocking validation, direction-aware evidence normalization, leakage-aware evaluation, and packaging a research pipeline into a tested, installable tool.</p>
+      <p>End-to-end CADD workflow design, native-redocking validation with optional auto-tuning, Uni-Dock docking and GNINA rescoring, direction-aware evidence normalization, transparent evidence-bucket triage, and packaging a research pipeline into a tested, installable tool with a public API and CLI.</p>
     </main>
     <footer class="footer">ScreenSift · virtual-screening triage · Eva Mitropoulou</footer>
   </body>
